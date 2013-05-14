@@ -18,7 +18,7 @@ package io
 
 import java.io.File
 import org.apache.hadoop.fs.{FileUtil, LocalFileSystem, Path, FileSystem}
-import org.apache.hadoop.filecache.DistributedCache
+import org.apache.hadoop.mapreduce.filecache.DistributedCache
 import application._
 import ScoobiConfiguration._
 import org.apache.commons.logging.LogFactory

@@ -19,8 +19,8 @@ package application
 import java.net.{URLClassLoader, URL}
 import com.nicta.scoobi.io.FileSystems
 import java.io.File
-import org.apache.hadoop.filecache.DistributedCache
 import org.apache.hadoop.fs.Path
+import org.apache.hadoop.mapreduce.filecache.DistributedCache
 import org.apache.commons.logging.LogFactory
 import impl.monitor.Loggable._
 import impl.control.SystemProperties

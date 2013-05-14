@@ -19,13 +19,13 @@ package exec
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.mapreduce.Job
+import org.apache.hadoop.mapreduce.MRJobConfig.CACHE_FILES
 import org.apache.hadoop.mapreduce.OutputFormat
 import org.apache.hadoop.mapreduce.TaskInputOutputContext
 import org.apache.hadoop.mapreduce.TaskAttemptContext
 import org.apache.hadoop.mapreduce.task.TaskAttemptContextImpl
 import org.apache.hadoop.mapreduce.RecordWriter
 import org.apache.hadoop.util.ReflectionUtils
-import org.apache.hadoop.filecache.DistributedCache._
 import scala.collection.mutable.{Map => MMap}
 
 import io.DataSink

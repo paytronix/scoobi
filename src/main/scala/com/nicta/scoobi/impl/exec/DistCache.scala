@@ -18,7 +18,7 @@ package impl
 package exec
 
 import org.apache.hadoop.fs._
-import org.apache.hadoop.filecache._
+import org.apache.hadoop.mapreduce.filecache._
 import org.apache.hadoop.conf.Configuration
 import util.Serialiser
 import Configurations._
