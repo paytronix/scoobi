@@ -14,10 +14,10 @@ scalaVersion := "2.9.2"
 
 libraryDependencies ++= Seq(
   "javassist" % "javassist" % "3.12.1.GA",
-  "org.apache.avro" % "avro-mapred" % "1.7.3.1",
-  "org.apache.avro" % "avro" % "1.7.3.1",
-  "org.apache.hadoop" % "hadoop-client" % "2.0.0-mr1-cdh4.0.1",
-  "org.apache.hadoop" % "hadoop-core" % "2.0.0-mr1-cdh4.0.1",
+  "org.apache.avro" % "avro-mapred" % "1.7.4",
+  "org.apache.avro" % "avro" % "1.7.4",
+  "org.apache.hadoop" % "hadoop-client" % "2.0.0-mr1-cdh4.1.1",
+  "org.apache.hadoop" % "hadoop-core" % "2.0.0-mr1-cdh4.1.1",
   "com.thoughtworks.xstream" % "xstream" % "1.4.3" intransitive(),
   "org.scalaz" %% "scalaz-core" % "7.0.0-M3",
   "org.specs2" %% "specs2" % "1.12.3" % "optional",
@@ -123,7 +123,7 @@ git.remoteRepo := "git@github.com:NICTA/scoobi.git"
 /** Notification */
 seq(lsSettings :_*)
 
-(LsKeys.ghBranch in LsKeys.lsync) := Some("master-publish") 
+(LsKeys.ghBranch in LsKeys.lsync) := Some("master-publish")
 
 (LsKeys.ghUser in LsKeys.lsync) := Some("nicta")
 
