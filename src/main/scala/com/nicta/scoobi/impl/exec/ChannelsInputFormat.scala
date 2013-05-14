@@ -53,9 +53,7 @@ class ChannelsInputFormat[K, V] extends InputFormat[K, V] {
 
   def getSplits(context: JobContext): java.util.List[InputSplit] = {
 
-    getInputFormats(context).flatMap { case (channel, format) =>
-      val conf = extractChannelConfiguration(context, channel)
-
+    getInputFormats(context).flatMap { case (channel, (format, conf)) =>
       /**
        * Wrap each of the splits for this InputFormat, tagged with the channel number. InputSplits
        * will be queried in the Mapper to determine the channel being processed.
@@ -173,13 +171,15 @@ object ChannelsInputFormat {
   }
 
   /** Get a map of all the input formats per channel id. */
-  private def getInputFormats(context: JobContext): Map[Int, InputFormat[_,_]] = {
+  private def getInputFormats(context: JobContext): Map[Int, (InputFormat[_,_], Configuration)] = {
     val conf = context.getConfiguration
     val Entry = """(.*);(.*)""".r
 
     conf.get(INPUT_FORMAT_PROPERTY).split(",").toList.map {
-      case Entry(ch, infmt) => (ch.toInt, ReflectionUtils.newInstance(Class.forName(infmt), conf).
-                                                          asInstanceOf[InputFormat[_,_]])
+      case Entry(ch, infmt) =>
+        val channel = ch.toInt
+        val formatConf = extractChannelConfiguration(context, channel)
+        (channel, (ReflectionUtils.newInstance(Class.forName(infmt), formatConf).asInstanceOf[InputFormat[_,_]], formatConf))
     }.toMap
   }
 }
@@ -197,7 +197,7 @@ class ChannelRecordReader[K, V](split: InputSplit, context: TaskAttemptContext) 
 
   private val originalRR: RecordReader[K, V] = {
     val taggedInputSplit: TaggedInputSplit = split.asInstanceOf[TaggedInputSplit]
-    val inputFormat = taggedInputSplit.inputFormatClass.newInstance.asInstanceOf[InputFormat[K, V]]
+    val inputFormat = ReflectionUtils.newInstance(taggedInputSplit.inputFormatClass, context.getConfiguration).asInstanceOf[InputFormat[K, V]]
     inputFormat.createRecordReader(taggedInputSplit.inputSplit, context)
   }
 
