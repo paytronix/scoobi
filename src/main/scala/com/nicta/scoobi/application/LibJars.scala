@@ -114,7 +114,10 @@ trait LibJars {
    */
   def configureJars(implicit configuration: ScoobiConfiguration) = if (upload) {
     logger.debug("adding the jars paths to the distributed cache")
-    uploadedJars.foreach(path => DistributedCache.addFileToClassPath(path, configuration))
+    uploadedJars.foreach { path =>
+        val disqualified = new Path(path.toUri.getPath)
+        DistributedCache.addFileToClassPath(disqualified, configuration)
+    }
 
     logger.debug("adding the jars classpaths to the mapred.classpath variable")
     configuration.addValues("mapred.classpath", jars.map(j => libjarsDirectory + (new File(j.getFile).getName)), ":")
