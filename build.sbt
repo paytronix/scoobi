@@ -8,7 +8,7 @@ name := "scoobi"
 
 organization := "com.nicta"
 
-version := "0.6.2-cdh4"
+version := "0.6.2-cdh4.2.1-px-1"
 
 scalaVersion := "2.9.2"
 
@@ -52,11 +52,20 @@ javaOptions ++= Seq("-Djava.security.krb5.realm=OX.AC.UK",
                     "-Djava.security.krb5.kdc=kdc0.ox.ac.uk:kdc1.ox.ac.uk")
 
 /** Publishing */
+/*
 publishTo <<= version { v: String =>
   val nexus = "https://oss.sonatype.org/"
   if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
   else                             Some("staging" at nexus + "service/local/staging/deploy/maven2")
 }
+*/
+publishTo <<= version { v: String =>
+  val nexus = "https://greylock.corp.paytronix.com/nexus/"
+  if (v.trim.endsWith("SNAPSHOT")) Some("paytronix-snapshots" at (nexus + "content/repositories/snapshots"))
+  else                             Some("paytronix-releases" at (nexus + "content/repositories/releases"))
+}
+
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
 publishMavenStyle := true
 
