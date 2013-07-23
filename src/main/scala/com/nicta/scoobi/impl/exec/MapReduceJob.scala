@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.FileSystem
 import org.apache.hadoop.fs.Path
-import org.apache.hadoop.mapreduce.TaskCompletionEvent
+import org.apache.hadoop.mapred.TaskCompletionEvent
 import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.mapreduce.Mapper
 import org.apache.hadoop.mapreduce.Reducer
@@ -374,13 +374,13 @@ class TaskDetailsLogger(job: Job) {
 
   /** Paginate through the TaskCompletionEvent's, logging details about completed tasks */
   def logTaskCompletionDetails() {
-    Iterator.continually(job.getTaskCompletionEvents(startIdx, java.lang.Integer.MAX_VALUE)).takeWhile(!_.isEmpty).foreach { taskCompEvents =>
+    Iterator.continually(job.getTaskCompletionEvents(startIdx)).takeWhile(!_.isEmpty).foreach { taskCompEvents =>
       taskCompEvents foreach { taskCompEvent =>
         val taskAttemptId = taskCompEvent.getTaskAttemptId
         val logUrl = createTaskLogUrl(taskCompEvent.getTaskTrackerHttp, taskAttemptId.toString)
         val taskAttempt = "Task attempt '"+taskAttemptId+"'"
         val moreInfo = " Please see "+logUrl+" for task attempt logs"
-        taskCompEvent.getStatus match {
+        taskCompEvent.getTaskStatus match {
           case OBSOLETE  => logger.debug(taskAttempt + " was made obsolete." + moreInfo)
           case FAILED    => logger.info(taskAttempt + " failed! " + "Trying again." + moreInfo)
           case KILLED    => logger.debug(taskAttempt + " was killed!" + moreInfo)

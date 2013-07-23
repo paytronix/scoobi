@@ -19,7 +19,7 @@ package exec
 
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.mapreduce.filecache.DistributedCache
+import org.apache.hadoop.filecache.DistributedCache
 
 import application.ScoobiConfiguration
 import core._

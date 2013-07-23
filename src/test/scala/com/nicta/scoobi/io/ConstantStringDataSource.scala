@@ -19,7 +19,7 @@ package io
 import java.util.Arrays._
 import org.apache.hadoop.mapreduce._
 import lib.input.InvalidInputException
-import org.apache.hadoop.mapreduce.filecache.DistributedCache
+import org.apache.hadoop.filecache.DistributedCache
 
 import application.ScoobiConfiguration
 
