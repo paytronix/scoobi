@@ -42,7 +42,10 @@ class MscrMapper[K1, V1, A, E, K2, V2] extends HMapper[K1, V1, TaggedKey, Tagged
     tv = context.getMapOutputValueClass.newInstance.asInstanceOf[TaggedValue]
 
     /* Find the converter and its mappers for this input channel from the tagged input split. */
-    inputs = DistCache.pullObject[Mappers](context.getConfiguration, "scoobi.mappers").getOrElse(Map())
+    inputs = DistCache.pullObject[Mappers](context.getConfiguration, "scoobi.mappers").getOrElse {
+      logger.error("Failed to pull scoobi.mappers object from distributed cache, task will probably fail.")
+      Map()
+    }
     val inputSplit = context.getInputSplit.asInstanceOf[TaggedInputSplit]
     val input: (InputConverter[K1, V1, A], Set[(Env[_], TaggedMapper[A, _, _, _])]) = inputs(inputSplit.channel)
 

@@ -17,9 +17,11 @@ package com.nicta.scoobi
 package impl
 package exec
 
+import org.apache.commons.logging.LogFactory
 import org.apache.hadoop.fs._
 import org.apache.hadoop.mapreduce.filecache._
 import org.apache.hadoop.conf.Configuration
+
 import util.Serialiser
 import Configurations._
 import application.ScoobiConfiguration._
@@ -28,6 +30,8 @@ import application.ScoobiConfiguration._
   * XStream to serialise objects to XML strings and then send out via Hadoop's
   * distributed cache. Two APIs are provided for pushing and pulling objects. */
 object DistCache {
+
+  lazy val logger = LogFactory.getLog("scoobi.DistCache")
 
   /** Make a local filesystem path based on a 'tag' to temporarily store the
     * serialized object. */
@@ -73,7 +77,10 @@ object DistCache {
     val dis = path.getFileSystem(conf).open(path)
     try {
       Some(Serialiser.deserialise(dis).asInstanceOf[T])
-    } catch { case e => { e.printStackTrace(); None } }
+    } catch { case e =>
+      logger.error("Failed to deserialize " + path + ":", e)
+      None
+    }
     finally { dis.close() }
   }
 }
