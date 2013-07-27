@@ -167,7 +167,7 @@ object ChannelsInputFormat {
    */
   private def extractChannelConfiguration(context: JobContext, channel: Int): Configuration = {
     val Prefix = ChannelPrefix.regex(channel)
-    context.getConfiguration.updateWith { case (Prefix(k), v) if k != CACHE_FILES => (k, v) }
+    new Configuration(context.getConfiguration).updateWith { case (Prefix(k), v) if k != CACHE_FILES => (k, v) }
   }
 
   /** Get a map of all the input formats per channel id. */
