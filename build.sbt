@@ -8,18 +8,18 @@ name := "scoobi"
 
 organization := "com.nicta"
 
-version := "0.6.2-cdh4.2.1-px-5"
+version := "0.6.2-cdh4.2.1-px-7"
 
 scalaVersion := "2.9.2"
 
 libraryDependencies ++= Seq(
   "javassist" % "javassist" % "3.12.1.GA",
-  "org.apache.avro" % "avro-mapred" % "1.7.3.1",
+  "org.apache.avro" % "avro-mapred" % "1.7.4",
   "org.apache.avro" % "avro" % "1.7.4",
   "org.apache.hadoop" % "hadoop-client" % "2.0.0-mr1-cdh4.2.1",
   "org.apache.hadoop" % "hadoop-core" % "2.0.0-mr1-cdh4.2.1",
   "com.thoughtworks.xstream" % "xstream" % "1.4.3" intransitive(),
-  "org.scalaz" %% "scalaz-core" % "7.0.0-M3",
+  "org.scalaz" %% "scalaz-core" % "7.0.2",
   "org.specs2" %% "specs2" % "1.12.3" % "optional",
   "com.chuusai" %% "shapeless" % "1.2.2",
   "org.specs2" % "classycle" % "1.4.1"% "test",

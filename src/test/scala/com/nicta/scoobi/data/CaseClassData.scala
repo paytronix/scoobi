@@ -42,10 +42,10 @@ trait CaseClassData extends Data {
   implicit val genIntHolder: Gen[IntHolder] = arbitrary[Int].map(IntHolder)
 
   implicit val genWritableDoubleStringInt: Gen[WritableDoubleStringInt] =
-    ^(arbitrary[Double], nonNullString, arbitrary[Int]) (WritableDoubleStringInt)
+    ^^(arbitrary[Double], nonNullString, arbitrary[Int]) (WritableDoubleStringInt)
 
   implicit val genDefaultDoubleStringInt: Gen[DefaultDoubleStringInt] =
-    ^(arbitrary[Double], nonNullString, arbitrary[Int])(DefaultDoubleStringInt)
+    ^^(arbitrary[Double], nonNullString, arbitrary[Int])(DefaultDoubleStringInt)
 
   implicit val genWritableStringNested: Gen[WritableStringNested] =
     ^(nonNullString, genWritableDoubleStringInt)(WritableStringNested)

@@ -154,7 +154,7 @@ object ChannelsInputFormat {
     source.inputConfigure(job)
 
     Option(job.getConfiguration.get(CACHE_FILES)).foreach { files =>
-      conf.set(ChannelPrefix.prefix(channel, CACHE_FILES), files)
+      //conf.set(ChannelPrefix.prefix(channel, CACHE_FILES), files)
       conf.addValues(CACHE_FILES, files.split(","): _*)
     }
     conf.updateWith(job.getConfiguration) { case (k, v)  if k != CACHE_FILES  => (ChannelPrefix.prefix(channel, k), v) }
