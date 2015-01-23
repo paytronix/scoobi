@@ -44,7 +44,7 @@ object dependencies {
 
     if (version.contains("cdh3"))      Seq("com.nicta" %% "scoobi-compatibility-cdh3"    % "1.0.3")
     else if (version.contains("cdh4")) Seq("com.nicta" %% "scoobi-compatibility-cdh4"    % "1.0.3")
-    else if (version.contains("cdh5")) Seq("com.nicta" %% "scoobi-compatibility-cdh5"    % "1.0.3")
+    else if (version.contains("cdh5")) Seq("com.nicta" %% "scoobi-compatibility-cdh5"    % "1.0.3-px-1")
     else                               Seq("com.nicta" %% "scoobi-compatibility-hadoop2" % "1.0.3")
 
   def scalaz(scalazVersion: String = "7.1.0") = Seq(
@@ -78,5 +78,6 @@ object dependencies {
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots"),
     "cloudera"             at "https://repository.cloudera.com/content/repositories/releases",
-    "hortonworks-releases" at "http://repo.hortonworks.com/content/repositories/releases")
+    "hortonworks-releases" at "http://repo.hortonworks.com/content/repositories/releases",
+    "paytronix" at "https://nexus.corp.paytronix.com/nexus/content/repositories/releases")
 }

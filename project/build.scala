@@ -159,10 +159,15 @@ object build extends Build {
   )
 
   lazy val publicationSettings: Seq[Settings] = Seq(
+    // publishTo <<= version { v: String =>
+    //   val nexus = "https://oss.sonatype.org/"
+    //   if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
+    //   else                             Some("staging"   at nexus + "service/local/staging/deploy/maven2")
+    // },
     publishTo <<= version { v: String =>
-      val nexus = "https://oss.sonatype.org/"
-      if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
-      else                             Some("staging"   at nexus + "service/local/staging/deploy/maven2")
+      val nexus = "https://nexus.corp.paytronix.com/nexus/"
+      if (v.trim.endsWith("SNAPSHOT")) Some("paytronix-snapshots" at (nexus + "content/repositories/snapshots"))
+      else                             Some("paytronix-releases" at (nexus + "content/repositories/releases"))
     },
     publishMavenStyle := true,
     publishArtifact in Test := false,
@@ -203,9 +208,10 @@ object build extends Build {
         </developer>
       </developers>
     ),
-    credentials := Seq(Credentials(Path.userHome / ".sbt" / "scoobi.credentials"))
-  ) ++
-  sonatypeSettings
+    // credentials := Seq(Credentials(Path.userHome / ".sbt" / "scoobi.credentials"))
+    credentials := Seq(Credentials(Path.userHome / ".ivy2" / ".credentials"))
+  ) // ++
+  // sonatypeSettings
 
   /**
    * RELEASE PROCESS
